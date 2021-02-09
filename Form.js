@@ -1,3 +1,12 @@
+function onSubmit(e) {
+  settings = initializeSettings();
+  formData = getAnswers(e.response);
+  checkTrelloAccess();
+  const templateBoard = getTemplateBoard();
+  const clientBoard = createBoard(templateBoard.id, formData.COMPANY_NAME);
+  customizeBoardTemplate(clientBoard.id);
+}
+
 function getAnswers(response) {
   const responses = response.getItemResponses();
   return {

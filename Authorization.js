@@ -48,36 +48,3 @@ function authCallback(request) {
     return HtmlService.createHtmlOutput('Denied. You can close this tab');
   }
 }
-
-function makeRequest(config) {
-  const trelloService = getTrelloService();
-  const requestOptions = {
-    method: config.method,
-  };
-  if (config.payload) {
-    requestOptions.payload = config.payload;
-  }
-  let url = settings.apiBaseURL + config.endpoint;
-  if (config.params) {
-    url = url + stringifyParameters(config.params);
-  }
-
-  const response = trelloService.fetch(url, requestOptions);
-  if (response.getResponseCode() !== 200) {
-    throw new Error(config.errorMessage);
-  }
-
-  return JSON.parse(response.getContentText());
-}
-
-// Create a query parameters string based on the received object
-function stringifyParameters(params) {
-  return (
-    '?' +
-    Object.keys(params)
-      .map((key) => {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-      })
-      .join('&')
-  );
-}
