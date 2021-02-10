@@ -27,7 +27,6 @@ function makeRequest(config) {
   if (config.params) {
     url = url + stringifyParameters(config.params);
   }
-
   const response = trelloService.fetch(url, requestOptions);
   if (response.getResponseCode() !== 200) {
     throw new Error(config.errorMessage);

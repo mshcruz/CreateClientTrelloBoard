@@ -9,6 +9,7 @@ function onSubmit(e) {
 
 function getAnswers(response) {
   const responses = response.getItemResponses();
+
   return {
     COMPANY_NAME: responses[0].getResponse(),
     CONTACT_PERSON: responses[1].getResponse(),
@@ -40,6 +41,7 @@ function createClientFolder(companyName) {
       'Failed to create client folder: Company name not specified.'
     );
   }
+
   return DriveApp.getFolderById(settings.clientsRootFolderID).createFolder(
     companyName
   );
@@ -65,5 +67,6 @@ function formatQuestionsAndAnswers(responses) {
       A: ${responses[i].getResponse()}`
     );
   }
+
   return formattedQuestionsAndAnswers.join('\r\n\r\n');
 }

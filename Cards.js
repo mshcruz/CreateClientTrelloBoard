@@ -6,7 +6,7 @@ function updateCardDescription(card, updateFields) {
 
   return makeRequest({
     method: 'PUT',
-    endpoint: '/cards/' + card.id,
+    endpoint: `/cards/${card.id}`,
     payload: {
       desc: description,
     },

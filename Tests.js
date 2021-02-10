@@ -11,7 +11,7 @@ function test_createClientTrelloBoard() {
 
 function onOpen() {
   const menuName = 'Automation';
-  const menuItemName = 'Create Trello board';
+  const menuItemName = 'Test Create Trello board';
   FormApp.getUi()
     .createMenu(menuName)
     .addItem(menuItemName, 'test_createClientTrelloBoard')

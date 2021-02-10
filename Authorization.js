@@ -1,3 +1,4 @@
+// OAuth1 library required: https://github.com/googleworkspace/apps-script-oauth1/
 function checkTrelloAccess() {
   const trelloService = getTrelloService();
   if (!trelloService.hasAccess()) {
@@ -12,30 +13,21 @@ function checkTrelloAccess() {
 }
 
 function getTrelloService() {
-  // Create a new service with the given name. The name will be used when
-  // persisting the authorized token, so ensure it is unique within the
-  // scope of the property store.
   const apiKey = PropertiesService.getScriptProperties().getProperty(
     settings.apiKeyProperty
   );
   const apiSecret = PropertiesService.getScriptProperties().getProperty(
     settings.apiSecretProperty
   );
-  return (
-    OAuth1.createService('trello')
-      // Set the endpoint URLs.
-      .setAccessTokenUrl(settings.trelloGetTokenURL)
-      .setRequestTokenUrl(settings.trelloRequestTokenURL)
-      .setAuthorizationUrl(settings.trelloAuthorizeTokenURL)
-      // Set the consumer key and secret.
-      .setConsumerKey(apiKey)
-      .setConsumerSecret(apiSecret)
-      // Set the name of the callback function in the script referenced
-      // above that should be invoked to complete the OAuth flow.
-      .setCallbackFunction('authCallback')
-      // Set the property store where authorized tokens should be persisted.
-      .setPropertyStore(PropertiesService.getUserProperties())
-  );
+
+  return OAuth1.createService('trello')
+    .setAccessTokenUrl(settings.trelloGetTokenURL)
+    .setRequestTokenUrl(settings.trelloRequestTokenURL)
+    .setAuthorizationUrl(settings.trelloAuthorizeTokenURL)
+    .setConsumerKey(apiKey)
+    .setConsumerSecret(apiSecret)
+    .setCallbackFunction('authCallback')
+    .setPropertyStore(PropertiesService.getUserProperties());
 }
 
 function authCallback(request) {
