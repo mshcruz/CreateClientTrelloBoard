@@ -1,4 +1,5 @@
-// OAuth1 library required: https://github.com/googleworkspace/apps-script-oauth1/
+// Verify whether the service has access to the API
+// If it doesn't, start the authorization flow
 function checkTrelloAccess() {
   const trelloService = getTrelloService();
   if (!trelloService.hasAccess()) {
@@ -12,6 +13,7 @@ function checkTrelloAccess() {
   }
 }
 
+// Get script properties and create service
 function getTrelloService() {
   const apiKey = PropertiesService.getScriptProperties().getProperty(
     settings.apiKeyProperty
@@ -30,6 +32,7 @@ function getTrelloService() {
     .setPropertyStore(PropertiesService.getUserProperties());
 }
 
+// Create HTML output for authorization callback
 function authCallback(request) {
   settings = initializeSettings();
   const trelloService = getTrelloService();

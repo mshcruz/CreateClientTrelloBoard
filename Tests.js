@@ -6,7 +6,7 @@ function test_createClientTrelloBoard() {
   formData = getAnswers(lastResponse);
   const templateBoard = getTemplateBoard();
   const clientBoard = createBoard(templateBoard.id, formData.COMPANY_NAME);
-  customizeBoardTemplate(clientBoard.id);
+  customizeBoard(clientBoard.id);
 }
 
 function onOpen() {

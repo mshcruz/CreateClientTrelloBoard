@@ -53,19 +53,7 @@ function invitePersonToBoard(boardID) {
   });
 }
 
-function customizeBoardTemplate(boardID) {
-  // Update client's To Do list name
-  const boardLists = getBoardLists(boardID);
-  for (const list of boardLists) {
-    if (list.name === '{{CONTACT_PERSON}} To Do') {
-      const listNewName = list.name.replace(
-        '{{CONTACT_PERSON}}',
-        formData.CONTACT_PERSON
-      );
-      updateListName(list.id, listNewName);
-    }
-  }
-
+function customizeBoard(boardID) {
   // Update cards
   const boardCards = getBoardCards(boardID);
   for (const card of boardCards) {
@@ -114,6 +102,18 @@ function customizeBoardTemplate(boardID) {
         break;
       default:
         break;
+    }
+  }
+
+  // Update client's To Do list name
+  const boardLists = getBoardLists(boardID);
+  for (const list of boardLists) {
+    if (list.name === '{{CONTACT_PERSON}} To Do') {
+      const listNewName = list.name.replace(
+        '{{CONTACT_PERSON}}',
+        formData.CONTACT_PERSON
+      );
+      updateListName(list.id, listNewName);
     }
   }
 

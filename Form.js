@@ -4,9 +4,10 @@ function onSubmit(e) {
   checkTrelloAccess();
   const templateBoard = getTemplateBoard();
   const clientBoard = createBoard(templateBoard.id, formData.COMPANY_NAME);
-  customizeBoardTemplate(clientBoard.id);
+  customizeBoard(clientBoard.id);
 }
 
+// Get answers from response submitted by the client
 function getAnswers(response) {
   const responses = response.getItemResponses();
 
@@ -35,6 +36,7 @@ function getAnswers(response) {
   };
 }
 
+// Create a folder for sharing files with client
 function createClientFolder(companyName) {
   if (!companyName) {
     throw new Error(
@@ -47,6 +49,7 @@ function createClientFolder(companyName) {
   );
 }
 
+// Create URL for the development version of the website based on the company name
 function getWebsiteDevelopmentURL(companyName) {
   if (!companyName) {
     throw new Error(
@@ -54,11 +57,14 @@ function getWebsiteDevelopmentURL(companyName) {
     );
   }
 
-  return `${encodeURIComponent(
-    companyName.toLowerCase().replace(/[^\x00-\x7F\s]/g, '')
-  )}.greatwebsites.com/dev`;
+  return (
+    encodeURIComponent(
+      companyName.toLowerCase().replace(/[^\x00-\x7F\s]/g, '')
+    ) + settings.devWebsiteBaseURL
+  );
 }
 
+// Create a formatted string with questions and answers submitted by the client
 function formatQuestionsAndAnswers(responses) {
   let formattedQuestionsAndAnswers = [];
   for (let i = 0; i < responses.length; i++) {
